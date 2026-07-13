@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Service{% endblock %}
+
+{% block content %}
+
+<section class="booking-section">
+
+    <div class="container">
+
+        <div class="booking-card">
+
+            <!-- Provider Information -->
+
+            <div class="booking-left">
+
+                {% if provider.image %}
+                    <img src="{{ provider.image.url }}" alt="{{ provider.name }}">
+                {% endif %}
+
+                <h2>{{ provider.name }}</h2>
+
+                <p>
+                    <i class="fas fa-tag"></i>
+                    {{ provider.category.name }}
+                </p>
+
+                <p>
+                    <i class="fas fa-phone"></i>
+                    {{ provider.phone }}
+                </p>
+
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ provider.provider_address }}
+                </p>
+
+                <h3>₹{{ provider.price }}</h3>
+
+            </div>
+
+            <!-- Booking Form -->
+
+            <div class="booking-right">
+
+                <h2>Book This Service</h2>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <button type="submit" class="book-service-btn">
+                        Confirm Booking
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,668 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | FixNest HomeService{% endblock %}
+
+{% block content %}
+
+<!-- ===========================
+        HERO SECTION
+=========================== -->
+
+<section class="hero">
+
+    <div class="container hero-wrapper">
+
+        <!-- Left Side -->
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                ⭐ Trusted by 8,000+ Customers
+            </span>
+
+            <h1>
+                Home Services <br>
+                At Your <span>Doorstep</span>
+            </h1>
+
+            <p>
+                Book trusted professionals for electrical work, plumbing,
+                painting, cleaning, AC repair, carpentry and much more.
+                Fast service, verified experts, transparent pricing.
+            </p>
+
+            <form action="{% url 'gallery' %}" method="GET" class="hero-search">
+
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Search Electrician, Plumber, Painter..."
+                >
+
+                <button type="submit">
+
+                    <i class="fas fa-search"></i>
+
+                    Search
+
+                </button>
+
+            </form>
+
+            <div class="hero-info">
+
+                <div class="info-box">
+
+                    <h3>10K+</h3>
+
+                    <span>Happy Customers</span>
+
+                </div>
+
+                <div class="info-box">
+
+                    <h3>1500+</h3>
+
+                    <span>Professionals</span>
+
+                </div>
+
+                <div class="info-box">
+
+                    <h3>4.9★</h3>
+
+                    <span>Customer Rating</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="hero-image">
+
+            <img src="{% static 'images/main.jpg' %}" alt="Technician">
+
+        </div>
+
+    </div>
+
+</section>
+</section>
+
+<!-- ======================================
+        POPULAR SERVICES
+====================================== -->
+
+<section class="services">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>OUR SERVICES</span>
+
+            <h2>Popular Home Services</h2>
+
+            <p>
+                Professional home services delivered by verified experts.
+            </p>
+
+        </div>
+
+        <div class="services-grid">
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-bolt fa-2xl" style="color: #FFB100;"></i>
+                </div>
+
+                <h3>Electrician</h3>
+
+                <p>
+                    Wiring, switch installation, fan fitting,
+                    power failure and electrical maintenance.
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-faucet-drip fa-2xl" style="color: #0077b6;"></i>
+                </div>
+
+                <h3>Plumber</h3>
+
+                <p>
+                    Leakage repair, bathroom fitting,
+                    pipe installation and water tank cleaning.
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-snowflake fa-2xl" style="color: #4cc9f0;"></i>
+                </div>
+
+                <h3>AC Repair</h3>
+
+                <p>
+                    AC service, gas filling,
+                    installation and annual maintenance.
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-broom fa-2xl" style="color: #a06cd5;"></i>
+                </div>
+
+                <h3>Cleaning</h3>
+
+                <p>
+                    Home cleaning, kitchen cleaning,
+                    sofa cleaning and bathroom cleaning.
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-paint-roller fa-2xl" style="color: #e63946;"></i>
+                </div>
+
+                <h3>Painting</h3>
+
+                <p>
+                    Interior painting,
+                    exterior painting and texture designs.
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-hammer fa-2xl" style="color: #6d4c41;"></i>
+                </div>
+
+                <h3>Carpenter</h3>
+
+                <p>
+                    Furniture assembly,
+                    cupboard repair and wooden works.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<div class="service-section">
+
+    <h1 class="service-main-title">Our Services</h1>
+
+    <!-- SERVICE ONLY -->
+    <h2 class="service-category-title">Service Only</h2>
+
+    <div class="service-card-container">
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-bolt fa-2xl"></i></div>
+            <h3 class="service-title">Electrician</h3>
+            <p class="service-description">
+                Professional electrical services for wiring, switch installation, lighting, and maintenance.
+            </p>
+            <div class="service-price">₹2000 - ₹3000</div>
+        </div>
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fas fa-faucet fa-2xl"></i></div>
+            <h3 class="service-title">Plumber</h3>
+            <p class="service-description">
+                Expert plumbing services for pipe fitting, leakages  and bathroom maintenance.
+            </p>
+            <div class="service-price">₹3000 - ₹4000</div>
+        </div>
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-paint-roller fa-2xl"></i></div>
+            <h3 class="service-title">Painting</h3>
+            <p class="service-description">
+                Professional interior and exterior painting services with premium quality finishes.
+            </p>
+            <div class="service-price">₹3000 - ₹5000</div>
+        </div>
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-broom fa-2xl"></i></div>
+            <h3 class="service-title">Cleaner</h3>
+            <p class="service-description">
+                Complete home and office cleaning services for a neat and hygienic environment.
+            </p>
+            <div class="service-price">₹2000 - ₹3000</div>
+        </div>
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-bug fa-2xl"></i></div>
+            <h3 class="service-title">Pest Control</h3>
+            <p class="service-description">
+                Safe and effective pest control solutions for homes and commercial spaces.
+            </p>
+            <div class="service-price">₹4000 - ₹5000</div>
+        </div>
+
+    </div>
+
+
+    <!-- SERVICE & REPAIR -->
+
+    <h2 class="service-category-title">Service & Repair</h2>
+
+    <div class="service-card-container">
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-hammer fa-2xl"></i></div>
+            <h3 class="service-title">Carpenter</h3>
+            <p class="service-description">
+                Expert carpenter for furniture installation, repair, and custom woodwork.
+            </p>
+            <div class="service-price">₹3500 - ₹5000</div>
+        </div>
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-snowflake fa-2xl"></i></div>
+            <h3 class="service-title">AC Repair</h3>
+            <p class="service-description">
+                Professional AC installation, servicing, gas refilling, and repair solutions.
+            </p>
+            <div class="service-price">₹2000 - ₹3000</div>
+        </div>
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-video fa-2xl"></i></div>
+            <h3 class="service-title">CCTV</h3>
+            <p class="service-description">
+                CCTV installation, maintenance, troubleshooting, and repair for homes and offices.
+            </p>
+            <div class="service-price">₹3000 - ₹4000</div>
+        </div>
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-tint fa-2xl"></i></div>
+            <h3 class="service-title">RO Service</h3>
+            <p class="service-description">
+                Complete RO purifier installation, maintenance, filter replacement, and repair services.
+            </p>
+            <div class="service-price">₹4000 - ₹5000</div>
+        </div>
+
+        <div class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-tools fa-2xl"></i></div>
+            <h3 class="service-title">Appliance Repair</h3>
+            <p class="service-description">
+                Reliable repair and maintenance services for washing machines, refrigerators, TVs, and more.
+            </p>
+            <div class="service-price">₹1000 - ₹2000</div>
+        </div>
+
+    </div>
+
+</div>
+<!-- ===================================
+        FEATURED PROVIDERS
+=================================== -->
+
+<section class="featured-providers">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>TOP RATED</span>
+
+            <h2>Featured Professionals</h2>
+
+            <p>
+                Our most trusted professionals selected based on customer ratings.
+            </p>
+
+        </div>
+
+        <div class="provider-grid">
+
+            {% for provider in featured_providers %}
+
+            <div class="provider-card">
+
+                <div class="provider-image">
+
+                    {% if provider.image %}
+
+                    <img src="{{ provider.image.url }}" alt="{{ provider.name }}">
+
+                    {% else %}
+
+                    <img src="{% static 'images/provider.jpg' %}" alt="Provider">
+
+                    {% endif %}
+
+                </div>
+
+                <div class="provider-body">
+
+                    <span class="provider-category">
+
+                        {{ provider.category.name }}
+
+                    </span>
+
+                    <h3>
+
+                        {{ provider.name }}
+
+                    </h3>
+
+                    <div class="provider-rating">
+
+                        ⭐⭐⭐⭐⭐
+
+                        <span>
+
+                            {{ provider.rating }}
+
+                        </span>
+
+                    </div>
+
+                    <div class="provider-price">
+
+                        ₹{{ provider.price }}
+
+                        <small>/ Service</small>
+
+                    </div>
+
+                    <a href="{% url 'provider_detail' provider.slug %}" class="book-btn">
+
+                        Book Now
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <h3>No Providers Available</h3>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ======================================
+        WHY CHOOSE US
+====================================== -->
+
+<section class="why-us">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>WHY CHOOSE US</span>
+
+            <h2>Why Customers Trust FixNest</h2>
+
+            <p>
+                We provide fast, affordable and reliable home services with verified professionals.
+            </p>
+
+        </div>
+
+        <div class="why-grid">
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+
+                <h3>Verified Professionals</h3>
+
+                <p>
+                    Every service provider is background verified and highly experienced.
+                </p>
+
+            </div>
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+
+                <h3>Quick Booking</h3>
+
+                <p>
+                    Book your required service within minutes with instant confirmation.
+                </p>
+
+            </div>
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+
+                <h3>Affordable Pricing</h3>
+
+                <p>
+                    Transparent pricing with no hidden charges or surprise fees.
+                </p>
+
+            </div>
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+
+                <h3>24×7 Support</h3>
+
+                <p>
+                    Our customer support team is always available to help you.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- =====================================
+        HOW IT WORKS
+====================================== -->
+
+<section class="how-it-works">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>HOW IT WORKS</span>
+
+            <h2>Book a Service in 3 Easy Steps</h2>
+
+            <p>
+                Finding the right professional has never been easier.
+            </p>
+
+        </div>
+
+        <div class="steps">
+
+            <div class="step-card">
+
+                <div class="step-number">1</div>
+
+                <div class="step-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <h3>Choose a Service</h3>
+
+                <p>
+                    Browse electricians, plumbers, cleaners, painters and many more trusted professionals.
+                </p>
+
+            </div>
+
+            <div class="step-card">
+
+                <div class="step-number">2</div>
+
+                <div class="step-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+
+                <h3>Book Instantly</h3>
+
+                <p>
+                    Select your preferred provider and schedule your service at your convenience.
+                </p>
+
+            </div>
+
+            <div class="step-card">
+
+                <div class="step-number">3</div>
+
+                <div class="step-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+
+                <h3>Relax at Home</h3>
+
+                <p>
+                    Sit back while our verified professionals arrive on time and complete the job.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ===========================================
+        DOWNLOAD APP
+=========================================== -->
+
+<section class="download-app">
+
+    <div class="container app-container">
+
+        <div class="app-left">
+
+            <span class="section-badge">
+                DOWNLOAD APP
+            </span>
+
+            <h2>
+                Book Home Services
+                <br>
+                Anytime, Anywhere
+            </h2>
+
+            <p>
+
+                Download the FixNest HomeService app and book trusted
+                professionals in just a few taps. Fast, secure and hassle-free.
+
+            </p>
+
+            <ul class="app-features">
+
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    Easy Booking
+                </li>
+
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    Live Booking Status
+                </li>
+
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    Secure Payments
+                </li>
+
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    Verified Professionals
+                </li>
+
+            </ul>
+
+            <div class="app-buttons">
+
+                <a href="#" class="store-btn">
+
+                    <i class="fab fa-google-play"></i>
+
+                    Google Play
+
+                </a>
+
+                <a href="#" class="store-btn">
+
+                    <i class="fab fa-apple"></i>
+
+                    App Store
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="app-right">
+
+            <div class="mobile-mockup">
+
+                <i class="fas fa-mobile-alt"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}
+

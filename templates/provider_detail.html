@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% block title %}{{ provider.name }} — FixNest HomeService{% endblock %}
+{% block content %}
+{% load static %}
+
+<section class="section">
+    <div class="container">
+        <section class="provider-profile-section">
+
+<div class="container">
+
+<div class="provider-profile-card">
+
+    
+
+    <div class="provider-image-">
+
+        {% if provider.image %}
+            <img src="{{ provider.image.url }}" alt="{{ provider.name }}">
+
+        {% else %}
+            <div class="provider-placeholder">
+                {{ provider.category.icon }}
+            </div>
+        
+        {% endif %}
+        {% if blocked %}
+        <div class="provider-block-box">
+            <h4>Comitments</h4>
+            <p>
+                <strong>Status:</strong>
+                <span class="text-danger">Unavailable</span>
+            </p>
+
+            <p>
+                <strong>Start:</strong>
+                    {{ blocked.start_time }}
+            </p>
+
+            <p>
+                <strong>End:</strong>
+                {{ blocked.end_time }}
+            </p>
+
+
+        </div>
+
+        {% else %}
+        <div class="provider-block-box available">
+            <h4>Availability</h4>
+
+            <p class="text-success">
+                ✔ Available Today
+            </p>
+
+        </div>
+
+        {% endif %}
+
+   
+        
+    </div>
+
+
+    <div class="provider-info">
+
+        <span class="provider-category">
+            <i class="{{ provider.category.icon }}"></i>
+            {{ provider.category.name }}
+        </span>
+
+        <h1>{{ provider.name }}</h1>
+
+        <div class="provider-rating">
+
+            ⭐ {{ provider.rating }}/5
+
+        </div>
+
+        <div class="provider-price">
+
+            <span class="current-price">
+                ₹{{ provider.price }}
+            </span>
+
+            {% if provider.original_price %}
+            <span class="old-price">
+                ₹{{ provider.original_price }}
+            </span>
+            {% endif %}
+
+        </div>
+
+        <p class="provider-description">
+
+            {{ provider.description }}
+
+        </p>
+
+        <div class="provider-details">
+
+            <div>
+                <i class="fas fa-phone"></i>
+                {{ provider.phone }}
+            </div><br>
+
+            <div>
+                <i class="fas fa-map-marker-alt"></i>
+                {{ provider.provider_address }}
+            </div><br>
+
+
+        </div>
+
+        <a href="{% url 'book_service' provider.slug %}" class="book-service-btn">
+            Book Service
+        </a>
+        
+    </div>
+
+</div>
+
+</div>
+
+</section>
+        <section class="recent-work-section">
+
+    <div class="container">
+
+        <h2 class="section-heading">
+            Recent Completed Works
+        </h2>
+
+        <div class="work-grid">
+
+            {% for work in recent_works %}
+
+            <div class="work-card">
+
+                <img src="{{ work.work_image.url }}" alt="{{ work.work_title }}">
+
+                <div class="work-content">
+
+                    <h3>{{ work.work_title }}</h3>
+
+                    <p>
+                        <i class="fas fa-user"></i>
+                        {{ work.customer_name }}
+                    </p>
+
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{ work.work_address }}
+                    </p>
+
+                    <span class="work-date">
+                        {{ work.completed_date }}
+                    </span>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <p>No completed works uploaded yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+{% if related %}
+<div class="related-section">
+
+    <h2>Related Providers</h2>
+
+    <div class="providers-grid">
+
+        {% for r in related %}
+
+        <div class="provider-card">
+
+            <div class="card-image">
+                {% if r.image_url %}
+                    <img src="{{ r.image_url }}" alt="{{ r.name }}">
+                {% else %}
+                    <div class="card-emoji">{{ r.category.icon }}</div>
+                {% endif %}
+            </div>
+
+            <div class="card-body">
+
+                <h3 class="card-title">
+                    <a href="{% url 'provider_detail' r.slug %}">
+                        {{ r.name }}
+                    </a>
+                    <span>({{ r.category }})</span>
+                </h3>
+
+                <div class="card-footer">
+                    <span class="price-current">₹{{ r.price }}</span>
+
+                    <a href="{% url 'provider_detail' r.slug %}" class="btn">
+                        View Profile
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endif %}
+</div>
+</section>
+{% endblock %}
+

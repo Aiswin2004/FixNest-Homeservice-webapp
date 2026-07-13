@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Provider Registeration — FixNest HomeService{% endblock %}
+
+{% block content %}
+<section class="provider-register">
+
+<div class="container">
+
+<div class="provider-wrapper">
+
+<!-- LEFT -->
+
+<div class="provider-left">
+
+<span class="provider-badge">
+Join FixNest
+</span>
+
+<h1>
+Become a Professional Service Provider
+</h1>
+
+<p>
+Grow your business with thousands of customers looking for trusted home service professionals every day.
+</p>
+
+<div class="provider-features">
+
+<div class="feature">
+<i class="fas fa-check-circle"></i>
+<span>Verified Profile</span>
+</div>
+
+<div class="feature">
+<i class="fas fa-wallet"></i>
+<span>Weekly Payments</span>
+</div>
+
+<div class="feature">
+<i class="fas fa-users"></i>
+<span>Thousands of Customers</span>
+</div>
+
+<div class="feature">
+<i class="fas fa-star"></i>
+<span>Increase Your Rating</span>
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="provider-right">
+
+<h2>Provider Registration</h2>
+
+<form method="POST" enctype="multipart/form-data" class="provider-form">
+
+    {% csrf_token %}
+    {% if form.errors %}
+    <div style="background:#ffe6e6;color:red;padding:10px;margin-bottom:20px;">
+    {{ form.errors }}
+    </div>
+    {% endif %}
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Username</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label>Providername</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            {{ form.category }}
+        </div>
+
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Mobile Number</label>
+            {{ form.phone }}
+        </div>
+        <div class="form-group">
+            <label>Adhaar Number</label>
+            {{ form.adhaar_no }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Provider Address</label>
+            {{ form.provider_address }}
+        </div>
+
+
+    <div class="form-group">
+        <label>Email</label>
+        {{ form.email }}
+    </div>
+
+</div>
+
+<div class="form-row">
+
+    <div class="form-group">
+        <label>Password</label>
+        {{ form.password }}
+    </div>
+
+    <div class="form-group">
+        <label>Confirm Password</label>
+        {{ form.confirm_password }}
+    </div>
+
+</div>
+    <div class="form-group">
+        <label>Description</label>
+        {{ form.description }}
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group">
+            <label>Service Charge (₹)</label>
+            {{ form.price }}
+        </div>
+
+        <div class="form-group">
+            <label>Original Price</label>
+            {{ form.original_price }}
+        </div>
+
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group">
+            <label>Availability</label>
+            {{ form.availability }}
+        </div>
+
+        <div class="form-group">
+            <label>Rating</label>
+            {{ form.rating }}
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <label>Provider Image</label>
+
+        {{ form.image }}
+
+    </div>
+
+
+
+<div class="provider-section">
+
+    <h3 class="section-title">
+        <i class="fas fa-briefcase"></i>
+        Recent Completed Work
+    </h3>
+
+    <div class="form-group">
+
+        <label>Work Title</label>
+
+        {{ form.work_title }}
+
+    </div>
+
+    <div class="form-group">
+
+        <label>Completed Work Image</label>
+
+        {{ form.work_image }}
+
+    </div>
+    <div class="form-group">
+
+        <label>Completed Work Date</label>
+
+        {{ form.completed_date }}
+
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group">
+
+            <label>Customer Name</label>
+
+            {{ form.customer_name }}
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Customer Phone</label>
+
+            {{ form.customer_phone }}
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <label>Completed Work Address</label>
+
+        {{ form.work_address }}
+
+    </div>
+
+</div>
+    <button class="provider-register-btn">
+
+        <i class="fas fa-user-plus"></i>
+
+        Register Provider
+        
+
+    </button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

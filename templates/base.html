@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FixNest HomeService {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER / NAVBAR ═══════════════════ -->
+<!-- ===========================
+        MODERN HEADER
+=========================== -->
+
+<header class="top-header">
+
+    <div class="container nav-container">
+
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-home"></i>
+            </div>
+
+            <div class="logo-text">
+                <h2>FixNest</h2>
+                <span>Home Services</span>
+            </div>
+        </a>
+
+        <!-- Search -->
+        <div class="search-box">
+            <form action="{% url 'gallery' %}" method="GET">
+
+                <div class="location-box">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text"
+                           placeholder="Coimbatore"
+                           name="location">
+                </div>
+
+                <div class="service-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text"
+                           name="q"
+                           placeholder="Search for services..."
+                           value="{{ request.GET.q }}">
+                </div>
+
+                <button type="submit">
+                    Search
+                </button>
+
+            </form>
+        </div>
+
+        <!-- Right Menu -->
+        <div class="nav-right">
+
+            <ul class="menu">
+
+                <li>
+                    <a href="{% url 'home' %}">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'gallery' %}">
+                        Services
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        About
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+            {% if user.is_authenticated %}
+                <span class="user-name">
+                <i class="fas fa-user-circle"></i>
+                {{ user.first_name|default:user.username }}
+                </span>
+                <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+                {% if user.provider_id %}
+                <a href="{% url 'provider_dashboard' %}" class="logout-btn">
+                Dashboard
+                </a>
+                {% else %}
+                <a href="{% url 'customer_dashboard' %}" class="logout-btn">
+                Dashboard
+                </a>
+                {% endif %}
+            {% else %}
+
+                <div class="auth-buttons">
+
+                    <a href="{% url 'login' %}" class="login-btn">
+                        Login
+                    </a>
+
+                    <a href="{% url 'register' %}" class="register-btn">
+                         Customer
+                    </a>
+                    <a href="{% url 'provider_register' %}" class="register-btn">
+                        Provider
+                    </a>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</header>
+<!-- ═══════════════════ MESSAGES ═══════════════════ -->
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+        <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+<main class="main-content">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <!-- Company -->
+
+            <div class="footer-col">
+
+                <h2 class="footer-logo">
+
+                    FixNest HomeService
+
+                </h2>
+
+                <p>
+
+                    Trusted home services delivered by verified professionals.
+                    Book electricians, plumbers, painters, cleaners and more.
+
+                </p>
+
+                <div class="social-icons">
+
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+
+                </div>
+
+            </div>
+
+            <!-- Quick Links -->
+
+            <div class="footer-col">
+
+                <h3>Quick Links</h3>
+
+                <ul>
+
+                    <li><a href="{% url 'home' %}">Home</a></li>
+
+                    <li><a href="{% url 'gallery' %}">Services</a></li>
+
+                    <li><a href="#">About</a></li>
+
+                    <li><a href="#">Contact</a></li>
+
+                </ul>
+
+            </div>
+
+            <!-- Categories -->
+
+            <div class="footer-col">
+
+                <h3>Categories</h3>
+
+                <ul>
+
+                    {% for cat in categories|slice:":6" %}
+
+                    <li>
+
+                        <a href="{% url 'gallery' %}?category={{ cat.slug }}">
+                            <i class="{{ cat.icon }}"></i>
+                             {{ cat.name }}
+                        </a>
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+            <!-- Contact -->
+
+            <div class="footer-col">
+
+                <h3>Contact</h3>
+
+                <p>
+
+                    <i class="fas fa-map-marker-alt"></i>
+
+                    Ram Nagar, Coimbatore
+
+                </p>
+
+                <p>
+
+                    <i class="fas fa-phone"></i>
+
+                    +91 90470 20807
+
+                </p>
+
+                <p>
+
+                    <i class="fas fa-envelope"></i>
+
+                    info@fixnestitcorp.com
+
+                </p>
+
+                <p>
+
+                    <i class="fas fa-clock"></i>
+
+                    24 × 7 Available
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            © 2026 FixNest HomeService. All Rights Reserved.
+
+        </div>
+
+    </div>
+
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

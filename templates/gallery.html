@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Provider Gallery — FixNest HomeService{% endblock %}
+
+{% block content %}
+
+
+
+<section class="gallery-hero">
+
+    <div class="container">
+
+        <div class="gallery-hero-content">
+
+            <span class="hero-label">
+                HOME SERVICES
+            </span>
+
+            <h1>
+                Find Trusted Professionals
+            </h1>
+
+            <p>
+                Choose from verified electricians, plumbers, painters, cleaners,
+                AC technicians and many more experienced professionals.
+            </p>
+
+            
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="filter-section">
+
+    <div class="container">
+
+        <form method="GET" class="filter-bar">
+
+            <div class="filter-item">
+
+                <i class="fas fa-search"></i>
+
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Search service..."
+                    value="{{ search_query }}"
+                >
+
+            </div>
+
+            <div class="filter-item">
+
+                <i class="fas fa-layer-group"></i>
+
+                <select name="category">
+
+                    <option value="">
+                        All Categories
+                    </option>
+
+                    {% for cat in categories %}
+
+                    <option
+                        value="{{ cat.slug }}"
+                        {% if selected_category == cat.slug %}selected{% endif %}
+                    >
+                        {{ cat.name }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="filter-item">
+
+                <i class="fas fa-sort"></i>
+
+                <select name="sort">
+
+                    <option value="newest">Newest</option>
+
+                    <option value="price_asc">Price Low → High</option>
+
+                    <option value="price_desc">Price High → Low</option>
+
+                    <option value="rating">Top Rated</option>
+
+                    <option value="name">A-Z</option>
+
+                </select>
+
+            </div>
+
+            <button class="filter-btn">
+
+                Apply Filters
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<section class="popular-categories">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>POPULAR SERVICES</span>
+
+            <h2>Browse by Category</h2>
+
+            <p>
+                Choose from our most booked home services.
+            </p>
+
+        </div>
+
+        <div class="category-grid">
+
+            {% for cat in categories %}
+
+            <a href="{% url 'gallery' %}?category={{ cat.slug }}" class="category-card">
+
+                <div class="category-icon">
+                    <i class="{{ cat.icon }}"></i>
+                </div>
+
+                <h3>
+
+                    {{ cat.name }}
+
+                </h3>
+
+                <p>
+
+                    Trusted Professionals
+
+                </p>
+
+            </a>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="providers-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>OUR PROFESSIONALS</span>
+
+            <h2>Available Services</h2>
+
+            <p>
+                Browse our trusted professionals and book the perfect service for your home.
+            </p>
+
+        </div>
+
+        <div class="providers-grid">
+
+            {% for provider in providers %}
+
+            <div class="provider-card">
+
+                <div class="provider-image">
+
+                    {% if provider.image %}
+
+                        <img src="{{ provider.image.url }}" alt="{{ provider.name }}" class="gallery-img">
+
+                    {% else %}
+
+                        <div class="provider-placeholder">
+
+                            {{ provider.category.icon }}
+
+                        </div>
+
+                    {% endif %}
+
+                    <span class="verified">
+
+                        <i class="fas fa-check-circle"></i>
+
+                        Verified
+
+                    </span>
+
+                </div>
+
+                <div class="provider-content">
+
+                    <span class="provider-category">
+
+                        <i class="{{ provider.category.icon }}"></i>
+
+                        {{ provider.category.name }}
+
+                    </span>
+
+                    <h3>
+
+                        {{ provider.name }}
+
+                    </h3>
+
+                    <p>
+
+                        {{ provider.description|truncatechars:50 }}
+
+                    </p>
+
+                    <div class="provider-rating">
+
+                        ⭐ {{ provider.rating }}
+
+                        <span></span>
+
+                    </div>
+
+                    <div class="provider-footer">
+
+                        <div>
+
+                            <small>Approximately</small>
+
+                            <h4>₹{{ provider.price }}</h4>
+
+                        </div>
+
+                        <a href="{% url 'provider_detail' provider.slug %}" class="book-btn">
+
+                            Book Now
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="empty-state">
+
+                <i class="fas fa-tools"></i>
+
+                <h2>No Services Available</h2>
+
+                <p>Please check back later.</p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
