@@ -42,31 +42,40 @@
 
 <td>
 
-{% if booking.status == "Pending" %}
+    {% if booking.status == "Pending" %}
 
-    <span class="badge bg-warning">
-        Pending
-    </span>
+        <span class="badge bg-warning text-dark">
+            Pending
+        </span>
 
-{% elif booking.status == "Accepted" %}
+    {% elif booking.status == "Accepted" %}
 
-    <span class="badge bg-success">
-        Accepted
-    </span>
+        <span class="badge bg-success">
+            Accepted
+        </span>
 
-{% elif booking.status == "Completed" %}
+    {% elif booking.status == "Rejected" %}
 
-    <span class="badge bg-primary">
-        Completed
-    </span>
+        <span class="badge bg-danger">
+            Rejected
+        </span>
 
-{% elif booking.status == "Rejected" %}
+    {% elif booking.status == "Completed" %}
 
-    <span class="badge bg-danger">
-        Rejected
-    </span>
+        <span class="badge bg-primary">
+            Completed
+        </span>
 
-{% endif %}
+        <br><br>
+
+        <a href="{% url 'download_invoice' booking.id %}"
+           class="btn btn-dark btn-sm">
+
+            📄 Download Invoice
+
+        </a>
+
+    {% endif %}
 
 </td>
 

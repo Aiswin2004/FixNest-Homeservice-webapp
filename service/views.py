@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from .models import Provider, Category,ProviderWork,ProviderBlockedDate,Booking
 from django.db.models import Q, Sum, Count
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
 
 
 
@@ -343,3 +345,137 @@ def customer_dashboard(request):
             "bookings": bookings,
         },
     )
+@login_required
+def download_invoice(request, booking_id):
+
+    booking = get_object_or_404(
+        Booking,
+        id=booking_id,
+        customer=request.user
+    )
+
+    # Allow invoice only for completed bookings
+    if booking.status != "Completed":
+        messages.error(request, "Invoice is available only after job completion.")
+        return redirect("customer_dashboard")
+
+    response = HttpResponse(content_type="application/pdf")
+
+    invoice_no = f"INV{booking.id:04d}"
+
+    response["Content-Disposition"] = (
+        f'attachment; filename="Invoice_{invoice_no}.pdf"'
+    )
+
+    p = canvas.Canvas(response)
+
+    # ===== Header =====
+    p.setFont("Helvetica-Bold", 18)
+    p.drawString(180, 800, "FIXNEST")
+
+    p.setFont("Helvetica", 13)
+    p.drawString(145, 780, "HOME SERVICE INVOICE")
+
+    p.line(50, 770, 550, 770)
+
+    # ===== Invoice Details =====
+    y = 740
+
+    p.setFont("Helvetica", 11)
+
+    p.drawString(50, y, f"Invoice No : {invoice_no}")
+    y -= 20
+
+    p.drawString(50, y, f"Booking ID : {booking.id}")
+    y -= 20
+
+    p.drawString(
+        50,
+        y,
+        f"Invoice Date : {timezone.now().strftime('%d-%m-%Y')}"
+    )
+
+    y -= 40
+
+    # ===== Customer =====
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(50, y, "Customer Details")
+
+    y -= 20
+    p.setFont("Helvetica", 11)
+
+    p.drawString(50, y, f"Name : {booking.customer_name}")
+    y -= 20
+
+    p.drawString(50, y, f"Phone : {booking.customer_phone}")
+
+    y -= 40
+
+    # ===== Provider =====
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(50, y, "Provider Details")
+
+    y -= 20
+    p.setFont("Helvetica", 11)
+
+    p.drawString(50, y, f"Provider : {booking.provider.name}")
+    y -= 20
+
+    p.drawString(50, y, f"Category : {booking.provider.category.name}")
+    y -= 20
+
+    p.drawString(50, y, f"Phone : {booking.provider.phone}")
+
+    y -= 40
+
+    # ===== Service =====
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(50, y, "Service Details")
+
+    y -= 20
+    p.setFont("Helvetica", 11)
+
+    p.drawString(
+        50,
+        y,
+        f"Service Date : {booking.booking_date}"
+    )
+    y -= 20
+
+    p.drawString(
+        50,
+        y,
+        f"Booking Time : {booking.booking_time}"
+    )
+    y -= 20
+
+    p.drawString(
+        50,
+        y,
+        f"Total Price : ₹{booking.provider.price}"
+    )
+    y -= 20
+
+    p.drawString(
+        50,
+        y,
+        f"Status : {booking.status}"
+    )
+
+    y -= 40
+
+    # ===== Footer =====
+    p.line(50, y, 550, y)
+
+    y -= 25
+
+    p.setFont("Helvetica-Bold", 11)
+    p.drawString(
+        120,
+        y,
+        "Thank you for choosing FixNest!"
+    )
+
+    p.save()
+
+    return response

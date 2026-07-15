@@ -15,5 +15,6 @@ urlpatterns = [
     path("booking/<int:booking_id>/complete/",views.complete_booking,name="complete_booking"),
     path("customer/dashboard/",views.customer_dashboard,name="customer_dashboard"),
     path('provider/<slug:slug>/', views.provider_detail, name='provider_detail'),
+    path("invoice/<int:booking_id>/",views.download_invoice,name="download_invoice"),
     path("provider/<slug:slug>/book/",views.book_service,name="book_service"),
 ]
