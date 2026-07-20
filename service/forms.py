@@ -215,7 +215,6 @@ class LoginForm(AuthenticationForm):
             'placeholder': 'Password'
         })
     )
-#provider_id,start_date,end_date,unavailable_date,reason
 class provider_blocked_date():
     provider_id = forms .IntegerField(
         widget=forms.TextInput(attrs={

@@ -13,7 +13,6 @@ from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 
 
-
 # Create your views here.
 def register_view(request):
     """
@@ -273,30 +272,39 @@ def provider_dashboard(request):
     bookings = Booking.objects.filter(
         provider=provider
     ).order_by("-booking_date", "-booking_time")
-
+    has_active_booking = Booking.objects.filter(
+    provider=provider,
+    status="Accepted").exists()
     return render(
         request,
         "provider_dashboard.html",
         {
             "provider": provider,
             "bookings": bookings,
+            "has_active_booking": has_active_booking,
         },
     )
 
 @login_required
-def accept_booking(request, booking_id):
 
-    booking = get_object_or_404(
-        Booking,
-        id=booking_id,
-        provider__user=request.user
-    )
+def accept_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    already_accepted = Booking.objects.filter(
+        provider=booking.provider,
+        status="Accepted"
+    ).exclude(id=booking.id).exists()
+
+    if already_accepted:
+        messages.error(request, "You already have an active booking. Complete it before accepting another one.")
+        return redirect("provider_dashboard")
 
     booking.status = "Accepted"
+    booking.provider.is_available = False
+    booking.provider.save()
     booking.save()
 
-    messages.success(request, "Booking Accepted.")
-
+    messages.success(request, "Booking accepted successfully.")
     return redirect("provider_dashboard")
 
 @login_required
@@ -317,16 +325,16 @@ def reject_booking(request, booking_id):
 @login_required
 def complete_booking(request, booking_id):
 
-    booking = get_object_or_404(
-        Booking,
-        id=booking_id,
-        provider__user=request.user
-    )
+    booking = get_object_or_404(Booking, id=booking_id)
 
     booking.status = "Completed"
     booking.save()
 
-    messages.success(request, "Booking marked as Completed.")
+    provider = booking.provider
+    provider.is_available = True
+    provider.save()
+
+    messages.success(request, "Job completed successfully. You are now available for new bookings.")
 
     return redirect("provider_dashboard")
 
@@ -479,3 +487,10 @@ def download_invoice(request, booking_id):
     p.save()
 
     return response
+
+def about(request):
+    return render(request, "about.html")
+
+
+def contact(request):
+    return render(request, "contact.html")

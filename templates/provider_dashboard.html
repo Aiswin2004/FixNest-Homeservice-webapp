@@ -21,6 +21,13 @@
         <hr><br>
 
         <h2>Booking Requests :</h2><br>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
 
         <table class="booking-table">
 
@@ -45,50 +52,33 @@
                     <td>{{ booking.booking_time }}</td>
                     <td>{{ booking.problem_description }}</td>
                     <td>{{ booking.status }}</td>
-
                     <td>
-                        {% if booking.status == "Pending" %}
+{% if booking.status == "Pending" %}
 
-    <a href="{% url 'accept_booking' booking.id %}"
-       class="btn-complete">
-        Accept
-    </a>
+    {% if not has_active_booking %}
+        <a href="{% url 'accept_booking' booking.id %}" class="accept-btn">
+            ✔ Accept
+        </a>
+    {% else %}
+        <button class="busy-btn" disabled>
+            Busy
+        </button>
+    {% endif %}
 
-    <a href="{% url 'reject_booking' booking.id %}"
-       class="btn-reject">
-        Reject
+    <a href="{% url 'reject_booking' booking.id %}" class="reject-btn">
+        ✖ Reject
     </a>
 
 {% elif booking.status == "Accepted" %}
 
-<div class="action-buttons">
-
-    <a href="{% url 'complete_booking' booking.id %}"
-       class="btn-complete">
-        Complete Job
+    <a href="{% url 'complete_booking' booking.id %}" class="complete-btn">
+        ✔ Job Completed
     </a>
-
-    <a href="{% url 'reject_booking' booking.id %}"
-       class="btn-reject">
-        Reject
-    </a>
-
-</div>
-
-{% elif booking.status == "Completed" %}
-
-    <span class="text-primary">
-        ✔ Completed
-    </span>
-
-{% elif booking.status == "Rejected" %}
-
-    <span class="text-danger">
-        ✖ Cancelled
-    </span>
 
 {% endif %}
-                    </td>
+</td>
+                   
+                    
                 </tr>
 
             {% empty %}

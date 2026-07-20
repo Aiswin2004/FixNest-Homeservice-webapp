@@ -24,36 +24,11 @@
             </div>
         
         {% endif %}
-        {% if blocked %}
-        <div class="provider-block-box">
-            <h4>Comitments</h4>
-            <p>
-                <strong>Status:</strong>
-                <span class="text-danger">Unavailable</span>
-            </p>
-
-            <p>
-                <strong>Start:</strong>
-                    {{ blocked.start_time }}
-            </p>
-
-            <p>
-                <strong>End:</strong>
-                {{ blocked.end_time }}
-            </p>
-
-
-        </div>
+       {% if provider.is_available %}
+            <span class="badge bg-success">Available</span>
 
         {% else %}
-        <div class="provider-block-box available">
-            <h4>Availability</h4>
-
-            <p class="text-success">
-                ✔ Available Today
-            </p>
-
-        </div>
+            <span class="badge bg-danger">Busy</span>
 
         {% endif %}
 
@@ -112,9 +87,19 @@
 
         </div>
 
-        <a href="{% url 'book_service' provider.slug %}" class="book-service-btn">
-            Book Service
-        </a>
+{% if provider.is_available %}
+
+    <a href="{% url 'book_service' provider.slug %}" class="book-service-btn">
+        Book Service
+    </a>
+
+{% else %}
+
+    <button class="book-service-btn unavailable-btn" disabled>
+        Currently Unavailable
+    </button>
+
+{% endif %}
         
     </div>
 
